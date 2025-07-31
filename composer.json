@@ -1,0 +1,36 @@
+{
+  "name": "starisian/plugin-template",
+  "description": "A WordPress plugin template by Starisian Technologies with PSR-4 autoloading and modular architecture.",
+  "type": "wordpress-plugin",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Max Barrett",
+      "email": "support@starisian.com",
+      "homepage": "https://www.starisian.com"
+    }
+  ],
+  "require": {
+    "php": "^8.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "Starisian\\src\\": "src/"
+    }
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "@composer dump-autoload"
+    ],
+    "post-update-cmd": [
+      "@composer dump-autoload"
+    ]
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "preferred-install": "dist",
+    "sort-packages": true
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
