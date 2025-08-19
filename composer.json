@@ -1,5 +1,3 @@
-> ℹ️ This repository uses `universe` as the default branch.  
-> When cloning, make sure you are on `universe` rather than `main`.
 {
   "name": "starisian/sparxstar-starter",
   "description": "A WordPress plugin template by Starisian Technologies with PSR-4 autoloading and modular architecture.",
