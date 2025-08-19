@@ -9,7 +9,7 @@
       "homepage": "https://www.starisian.com"
     }
   ],
-"require": {
+  "require": {
     "php": "^8.2",
     "composer/installers": "^2.3"
   },
@@ -21,7 +21,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Starisian\\": "src/"
+      "Starisian\\src\\": "src/"
     }
   },
   "scripts": {

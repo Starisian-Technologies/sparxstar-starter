@@ -1,13 +1,15 @@
 <?php
 namespace Starisian\src\includes;
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+if (!defined('ABSPATH')) {
+    exit;
+}
 
 /**
  * Simple PSR-4 class autoloader for Starisian plugins.
  *
  * This autoloader supports OOP plugin development without requiring Composer.
- * It expects classes to be within the defined PLUGIN_NAMESPACE and located in /src/.
+ * It expects classes to be within the defined STARISIAN_NAMESPACE and located in /src/.
  */
 class Autoloader {
 
@@ -32,13 +34,13 @@ class Autoloader {
      */
     public static function loadClass( string $className ): void {
         // Ensure required constants are defined
-        if ( ! defined( 'PLUGIN_NAMESPACE' ) || ! defined( 'PLUGIN_PATH' ) ) {
-            error_log( 'Autoloader error: PLUGIN_NAMESPACE or PLUGIN_PATH is not defined.' );
+        if (!defined('STARISIAN_NAMESPACE') || !defined('STARISIAN_PATH')) {
+            error_log('Autoloader error: STARISIAN_NAMESPACE or STARISIAN_PATH is not defined.');
             return;
         }
 
-        $baseNamespace = PLUGIN_NAMESPACE;
-        $baseDir       = PLUGIN_PATH . 'src/';
+        $baseNamespace = STARISIAN_NAMESPACE;
+        $baseDir       = STARISIAN_PATH . 'src/';
 
         $len = strlen( $baseNamespace );
         if ( strncmp( $className, $baseNamespace, $len ) !== 0 ) {
@@ -55,3 +57,4 @@ class Autoloader {
         }
     }
 }
+
