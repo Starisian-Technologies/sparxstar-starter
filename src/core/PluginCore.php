@@ -3,11 +3,11 @@
 
 namespace Starisian\src\core;
 
-if (!defined('ABSPATH')) {
-	exit;
-}
-
 use Starisian\src\includes\PluginRules;
+
+if (!defined('ABSPATH')) {
+    exit;
+}
 
 /**
  * Class PluginCore
@@ -18,27 +18,28 @@ use Starisian\src\includes\PluginRules;
  * @package Starisian\PluginTemplate\Core
  */
 final class PluginCore {
-	private static ?PluginCore $instance = null;
+        private static ?PluginCore $instance = null;
 
-	/**
-	 * Returns the singleton instance of the PluginCore class.
-	 *
-	 * @return PluginCore
-	 */
-	public static function getInstance(): PluginCore {
-		if (self::$instance === null) {
-			self::$instance = new self();
-		}
-		return self::$instance;
-	}
+        /**
+         * Returns the singleton instance of the PluginCore class.
+         *
+         * @return PluginCore
+         */
+        public static function getInstance(): PluginCore {
+                if (self::$instance === null) {
+                        self::$instance = new self();
+                }
+                return self::$instance;
+        }
 
-	/**
-	 * Private constructor to prevent direct instantiation.
-	 */
-	private function __construct() {
-		// Register core plugin hooks, rules, or services here.
-		if (class_exists('\Starisian\src\includes\PluginRules', false)) {
-			\Starisian\src\includes\PluginRules::register_hooks();
-		}
-	}
+        /**
+         * Private constructor to prevent direct instantiation.
+         */
+        private function __construct() {
+                // Register core plugin hooks, rules, or services here.
+                if (class_exists(PluginRules::class, false)) {
+                        PluginRules::register_hooks();
+                }
+        }
 }
+

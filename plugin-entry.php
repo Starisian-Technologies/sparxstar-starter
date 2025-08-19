@@ -83,8 +83,10 @@ final class PluginCoreTemplate
 
 	private function load_dependencies(): void {
 		if (!class_exists('Starisian\src\core\PluginCore', false)) {
-			error_log('Starisian Plugin: Main class PluginCore not found.');
-			return;
+                        if (defined('WP_DEBUG') && WP_DEBUG) {
+                                error_log('Starisian Plugin: Main class PluginCore not found.');
+                        }
+                        return;
 		}
 		$this->core = \Starisian\src\core\PluginCore::getInstance();
 	}
@@ -123,16 +125,16 @@ final class PluginCoreTemplate
 		_doing_it_wrong(__FUNCTION__, esc_html__('Cloning is not allowed.', 'plugin-textdomain'), self::VERSION);
 	}
 
-	private function __wakeup(): void
-	{
-		_doing_it_wrong(__FUNCTION__, esc_html__('Unserializing is not allowed.', 'plugin-textdomain'), self::VERSION);
-	}
+        public function __wakeup(): void
+        {
+                _doing_it_wrong(__FUNCTION__, esc_html__('Unserializing is not allowed.', 'plugin-textdomain'), self::VERSION);
+        }
 
-	private function __sleep(): array
-	{
-		_doing_it_wrong(__FUNCTION__, esc_html__('Serialization is not allowed.', 'plugin-textdomain'), self::VERSION);
-		return [];
-	}
+        public function __sleep(): array
+        {
+                _doing_it_wrong(__FUNCTION__, esc_html__('Serialization is not allowed.', 'plugin-textdomain'), self::VERSION);
+                return [];
+        }
 
 	private function __destruct()
 	{
@@ -172,3 +174,4 @@ register_activation_hook(__FILE__, ['Starisian\PluginCoreTemplate', 'activate'])
 register_deactivation_hook(__FILE__, ['Starisian\PluginCoreTemplate', 'deactivate']);
 register_uninstall_hook(__FILE__, ['Starisian\PluginCoreTemplate', 'uninstall']);
 add_action('plugins_loaded', ['Starisian\PluginCoreTemplate', 'run']);
+
