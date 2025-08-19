@@ -1,0 +1,11 @@
+{
+  "name": "sparxstar-starter",
+  "private": true,
+  "scripts": {
+    "lint": "npm run lint:js && npm run lint:css",
+    "lint:js": "echo 'eslint placeholder'",
+    "lint:css": "echo 'stylelint placeholder'",
+    "format": "echo 'prettier placeholder'",
+    "test": "echo 'no js tests'"
+  }
+}
