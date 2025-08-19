@@ -1,7 +1,6 @@
 {
-  "name": "starisian/plugin-template",
+  "name": "starisian/sparxstar-starter",
   "description": "A WordPress plugin template by Starisian Technologies with PSR-4 autoloading and modular architecture.",
-  "type": "wordpress-plugin",
   "license": "proprietary",
   "authors": [
     {
