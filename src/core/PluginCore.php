@@ -3,7 +3,6 @@
 
 namespace Starisian\src\core;
 
-use Starisian\src\includes\PluginRules;
 
 if (!defined('ABSPATH')) {
     exit;

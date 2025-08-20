@@ -3,9 +3,7 @@ parameters:
   phpVersion: 80200
 
   paths:
-    - ./includes
     - ./src
-    - ./plugin-name.php
 
   autoload_files:
     - ./vendor/autoload.php
@@ -17,7 +15,6 @@ parameters:
     - vendor/*
     - node_modules/*
     - assets/*
-    - includes/lib/*
 
   checkMissingIterableValueType: false
   checkGenericClassInNonGenericObjectType: false
