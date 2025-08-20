@@ -36,8 +36,8 @@ final class PluginCore {
          */
         private function __construct() {
                 // Register core plugin hooks, rules, or services here.
-                if (class_exists(PluginRules::class, false)) {
-                        PluginRules::register_hooks();
+                if (class_exists('\\Starisian\\src\\includes\\PluginRules', false)) {
+                        \Starisian\src\includes\PluginRules::register_hooks();
                 }
         }
 }
