@@ -3,23 +3,29 @@ permissions:
 name: CI
 on:
   push:
+    branches: [main]
   pull_request:
+    branches: [main]
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-version: ['8.2', '8.3', '8.4']
     steps:
       - uses: actions/checkout@v4
       - name: Setup PHP
-        uses:   # uses: shivammathur/setup-php@20529878ed81ef8e78ddf08b480401e6101a850f
+        uses: shivammathur/setup-php@20529878ed81ef8e78ddf08b480401e6101a850f
         with:
-          php-version: '8.2'
+          php-version: ${{ matrix.php-version }}
+          coverage: none
       - name: Install dependencies
         run: composer install --no-interaction
       - name: PHP Lint
-        run: composer lint:php
+        run: composer run lint:php
       - name: PHPStan
-        run: composer analyze:php
+        run: composer run analyze:php
       - name: PHPUnit
-        run: composer test:php
+        run: composer run test:php
       - name: Node tests
         run: npm test
