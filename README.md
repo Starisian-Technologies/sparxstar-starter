@@ -60,7 +60,7 @@ A template repository for building WordPress plugins that follows WordPress codi
 *   **Lockfiles required**: composer.lock, package-lock.json or pnpm-lock.yaml.
 *   **License scanning**: Policy note (e.g., allowed/denied licenses) and CI step placeholder.
 *   **Provenance/SLSA note**: Where to add provenance when relevant.
-*   **Third-party notices**: THIRD\_PARTY\_LICENSES.md guidance.
+*   **Third-party notices**: THIRD_PARTY_LICENSES.md guidance.
 
 ### 7) Product scaffolding (descriptive only)
 
@@ -73,8 +73,8 @@ A template repository for building WordPress plugins that follows WordPress codi
 
 ### 8) Operations & environments
 
-*   **LOCAL\_DEVELOPMENT.md**: Required tool versions, make/npx scripts, Docker guidance (if used).
-*   **RELEASE\_PROCESS.md**: Versioning policy, tag naming, backport rules.
+*   **LOCAL_DEVELOPMENT.md**: Required tool versions, make/npx scripts, Docker guidance (if used).
+*   **RELEASE_PROCESS.md**: Versioning policy, tag naming, backport rules.
 *   **INCIDENTS.md**: Light-weight postmortem template and severity guide.
 
 ### 9) SPARXSTAR Profile (uses the Starisian core as-is)
