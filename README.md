@@ -38,7 +38,7 @@ A template repository for building WordPress plugins that follows WordPress codi
 *   **Git hooks**: Husky + lint-staged (pre-commit: ESLint/Stylelint/Prettier/PHPCS; pre-push: tests/analyzers).
 *   **Commit policy**: commitlint.config.\*, czrc for Conventional Commits.
 
-  ### 4) Testing & analysis
+### 4) Testing & analysis
 
 *   **PHPUnit**: phpunit.xml.dist, /tests/phpunit/ (bootstrap, fixtures, integration notes).
 *   **JS tests** (optional): Jest/Vitest config and /tests/js/.
