@@ -62,7 +62,7 @@ A template repository for building WordPress plugins that follows WordPress codi
 *   **Provenance/SLSA note**: Where to add provenance when relevant.
 *   **Third-party notices**: THIRD\_PARTY\_LICENSES.md guidance.
 
-  ### 7) Product scaffolding (descriptive only)
+### 7) Product scaffolding (descriptive only)
 
 *   **/src/**: Core application/plugin/library structure (PSR-4 namespaces, layered architecture).
 *   **/assets/**: Logos, UI references with usage and licensing notes.
