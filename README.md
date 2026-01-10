@@ -55,7 +55,7 @@ A template repository for building WordPress plugins that follows WordPress codi
 *   **Dependabot**: .github/dependabot.yml for Composer, npm, Actions.
 *   **GitLab mirrors** (if needed): .gitlab-ci.yml stages (lint, test, build, security, release) and **gl-codequality.yml** integration for MR widgets.
 
-  ### 6) Supply chain & legal guardrails
+### 6) Supply chain & legal guardrails
 
 *   **Lockfiles required**: composer.lock, package-lock.json or pnpm-lock.yaml.
 *   **License scanning**: Policy note (e.g., allowed/denied licenses) and CI step placeholder.
