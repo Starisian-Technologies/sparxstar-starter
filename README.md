@@ -77,7 +77,7 @@ A template repository for building WordPress plugins that follows WordPress codi
 *   **RELEASE\_PROCESS.md**: Versioning policy, tag naming, backport rules.
 *   **INCIDENTS.md**: Light-weight postmortem template and severity guide.
 
-  ### 9) SPARXSTAR Profile (uses the Starisian core as-is)
+### 9) SPARXSTAR Profile (uses the Starisian core as-is)
 
 *   **/profiles/sparxstar/PROFILE.md**: What to keep “as-is,” environment expectations (WordPress multisite, PHP-FPM, Cloudflare), performance SLO notes.
 *   **/profiles/sparxstar/QUALITY-GATES.md**: Min coverage thresholds, PHPCS standards, JS rules strictness.
