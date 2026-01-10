@@ -101,5 +101,5 @@ A template repository for building WordPress plugins that follows WordPress codi
 
 For architecture details see [ARCHITECTURE.md](ARCHITECTURE.md). Contribution guidelines live in [CONTRIBUTING.md](CONTRIBUTING.md).
 
-<sub>Copyright ©2025 Starisian Technologies™. All rights reserved. 
+<sub>Copyright ©2025 Starisian Technologies™. All rights reserved.
 [SPARXSTAR](https://sparxstar.com)™ is a trademark of [MaximillianGroup](https://maximilliangroup.us)™.</sub>
