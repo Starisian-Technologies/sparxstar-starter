@@ -23,7 +23,7 @@ A template repository for building WordPress plugins that follows WordPress codi
 *   **RELEASE\_NOTES.md / CHANGELOG.md**: Versioned change log and human-readable highlights.
 *   **SUPPORT.md / MAINTAINERS.md**: Where to get help; owners and escalation.
 
-  ### 2) Repo hygiene & configuration
+### 2) Repo hygiene & configuration
 
 *   **.editorconfig**, **.gitattributes**, **.gitignore** tuned for PHP/JS/WordPress, audio/media, logs, build artifacts.
 *   **CODEOWNERS**: Paths mapped to teams (security, infra, web, data).
