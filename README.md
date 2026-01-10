@@ -71,7 +71,7 @@ A template repository for building WordPress plugins that follows WordPress codi
 *   **/examples/**: Narrative examples of intended usage; no production code.
 *   **/templates/**: Starter blueprints (e.g., WP plugin skeleton, REST endpoint outline, content model outline).
 
-  ### 8) Operations & environments
+### 8) Operations & environments
 
 *   **LOCAL\_DEVELOPMENT.md**: Required tool versions, make/npx scripts, Docker guidance (if used).
 *   **RELEASE\_PROCESS.md**: Versioning policy, tag naming, backport rules.
