@@ -3,7 +3,7 @@
 
 A template repository for building WordPress plugins that follows WordPress coding guidelines and Starisian Technologies SPARXSTAR™ deployment needs.
 
-![GitHub CI](https://github.com/dwyl/auth_plug/actions/workflows/ci.yml/badge.svg)
+![GitHub CI](https://github.com/starisian/sparxstar-starter/actions/workflows/ci.yml/badge.svg)
 
 ## SPARXSTAR Starter Master Blueprint
 
