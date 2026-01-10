@@ -45,7 +45,7 @@ A template repository for building WordPress plugins that follows WordPress codi
 *   **Coverage**: Documented thresholds; LCOV/Clover output paths; how CI enforces minimums.
 *   **Static analysis**: PHPStan levels, ESLint strictness tiers, Stylelint rules; guidance on suppressions and ADRs.
 
-  ### 5) CI/CD (GitHub-first, GitLab-ready)
+### 5) CI/CD (GitHub-first, GitLab-ready)
 
 *   **GitHub Actions** (.github/workflows/):
     *   ci.yml: matrix for PHP versions and Node LTS; jobs for PHPCS, PHPStan, PHPUnit, ESLint, Stylelint, Markdownlint, coverage upload.
