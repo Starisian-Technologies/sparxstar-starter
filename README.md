@@ -29,7 +29,7 @@ A template repository for building WordPress plugins that follows WordPress codi
 *   **CODEOWNERS**: Paths mapped to teams (security, infra, web, data).
 *   **example.env** (+ notes on secret management), **/docs/** for expanded guides, **/templates/** for reusable issue/PR snippets and boilerplate copy.
 
-  ### 3) Linting, formatting, and quality gates
+### 3) Linting, formatting, and quality gates
 
 *   **JavaScript/TypeScript**: .eslintrc.\*, .eslintignore with a modern ruleset and plugin notes; **Prettier** via .prettierrc, .prettierignore.
 *   **Styles**: .stylelintrc.\*, .stylelintignore (CSS/SCSS).
