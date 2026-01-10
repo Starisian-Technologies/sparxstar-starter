@@ -13,14 +13,14 @@ A template repository for building WordPress plugins that follows WordPress codi
 *   **README.md**: Purpose, scope, supported stacks (WordPress/PHP 8.2+, Node LTS), how to use this template, and when to fork vs. extend.
 *   **ARCHITECTURE.md**: System boundaries, module layout, data flow, threat model overview, and performance expectations.
 *   **CONTRIBUTING.md**: Branch strategy, commit style (Conventional Commits), review criteria, required checks.
-*   **CODE\_OF\_CONDUCT.md**: Behavior standards.
+*   **CODE_OF_CONDUCT.md**: Behavior standards.
 *   **SECURITY.md**: How to report vulnerabilities, triage SLA, disclosure policy.
 *   **LICENSE.md**: Starisian proprietary license (San Diego, CA jurisdiction) with notes for downstream dual-licensing when applicable.
 *   **ETHICS.md**: Org-wide ethical principles (AI responsibility, community impact).
-*   **CULTURAL\_GUIDELINES.md**: Inclusive language, localization expectations, content sensitivity guardrails.
+*   **CULTURAL_GUIDELINES.md**: Inclusive language, localization expectations, content sensitivity guardrails.
 *   **ROADMAP.md**: Milestones and decision checkpoints.
 *   **DECISIONS.md**: Architecture Decision Records (ADR log).
-*   **RELEASE\_NOTES.md / CHANGELOG.md**: Versioned change log and human-readable highlights.
+*   **RELEASE_NOTES.md / CHANGELOG.md**: Versioned change log and human-readable highlights.
 *   **SUPPORT.md / MAINTAINERS.md**: Where to get help; owners and escalation.
 
 ### 2) Repo hygiene & configuration
