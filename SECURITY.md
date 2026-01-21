@@ -39,7 +39,7 @@ The following are out of scope:
 - Denial of Service (DoS) without actual exploit
 - Vulnerabilities in third-party dependencies unless demonstrably exploitable in this repo
 
-## Special Considerations for Culturally Sensitive Data
+## Special Considerations for Sensitive Data
 
 Many assets in this repository are bound by **dual-consent and community governance protocols**. Unauthorized access, exfiltration, or tampering may trigger legal action under:
 
