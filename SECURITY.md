@@ -6,7 +6,7 @@ This document defines the security reporting and disclosure policy for the AiWA 
 
 If you discover a security vulnerability, **do not file a public issue**. Instead, please report it confidentially to our security team:
 
-- 📧 Email: [security@starisiuan.com](mailto:security@starisian.com)
+- 📧 Email: [security@starisian.com](mailto:security@starisian.com)
 - 📧 Legal escalation: [legal@starisian.com](mailto:legal@starisian.com)
 
 Please include:
