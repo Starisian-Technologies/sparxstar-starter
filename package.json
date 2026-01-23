@@ -26,7 +26,8 @@
             "stylelint --fix",
             "prettier --write"
         ],
-        "*.php": [
+        "src/**/*.php": [
+            "./vendor/bin/phpcbf -q || true",
             "./vendor/bin/phpcs -q",
             "./vendor/bin/phpstan analyse --no-progress --memory-limit=512M"
         ],
