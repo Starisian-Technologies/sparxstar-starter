@@ -1,3 +1,5 @@
+<img width="1280" height="640" alt="Untitled-7 (2)" src="https://github.com/user-attachments/assets/dfcadedb-c950-4767-889a-cde70eef6b7a" />
+
 # SPARXSTAR™ Gluon - WordPress® Plugin Starter
 
 A comprehensive template repository for building modern WordPress plugins that
