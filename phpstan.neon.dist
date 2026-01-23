@@ -5,10 +5,8 @@ parameters:
   paths:
     - ./src
 
-  autoload_files:
+  bootstrapFiles:
     - ./vendor/autoload.php
-
-  baseline: phpstan-baseline.neon
 
   treatPhpDocTypesAsCertain: false
 
@@ -18,10 +16,14 @@ parameters:
     - node_modules/*
     - assets/*
 
-  checkMissingIterableValueType: false
-  checkGenericClassInNonGenericObjectType: false
-
   ignoreErrors:
     - '#Call to an undefined method (WP_|apply_filters|do_action|get_option|update_option|get_post).*#'
-    - '#Access to an undefined property (WP_|\\$post|\\$wpdb).*#'
+    - '#Access to an undefined property (WP_|post|wpdb).*#'
     - '#Function get_(option|post|term).* not found.#'
+    -
+      identifier: missingType.iterableValue
+    -
+      identifier: missingType.generics
+
+includes:
+  - phpstan-baseline.neon

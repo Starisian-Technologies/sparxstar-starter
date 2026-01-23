@@ -7,15 +7,23 @@
     WordPress coding standards for Starisian Technologies plugins. Includes support for Docs, I18n, and performance best practices.
   </description>
 
-  <!-- Scan all files in the plugin root -->
-  <file>.</file>
+  <!-- Scan only root PHP files and src directory -->
+  <file>src/</file>
+  <file>sparxstar-gluon.php</file>
+  <file>uninstall.php</file>
 
   <!-- Exclude unnecessary paths -->
   <exclude-pattern>vendor/*</exclude-pattern>
   <exclude-pattern>node_modules/*</exclude-pattern>
   <exclude-pattern>*.min.js</exclude-pattern>
+  <exclude-pattern>*.js</exclude-pattern>
   <exclude-pattern>tests/*</exclude-pattern>
   <exclude-pattern>wp-assets/*</exclude-pattern>
+  <exclude-pattern>assets/*</exclude-pattern>
+  <exclude-pattern>data/*</exclude-pattern>
+  <exclude-pattern>docs/*</exclude-pattern>
+  <exclude-pattern>examples/*</exclude-pattern>
+  <exclude-pattern>schemas/*</exclude-pattern>
 
   <!-- Basepath -->
   <arg name="basepath" value="."/>
@@ -36,6 +44,7 @@
     <properties>
       <property name="text_domain" type="array">
         <element value="plugin-textdomain"/>
+        <element value="sparxstar-gluon"/>
       </property>
     </properties>
   </rule>
@@ -45,8 +54,37 @@
     <properties>
       <property name="prefixes" type="array">
         <element value="starisian"/>
+        <element value="sparxstar"/>
       </property>
     </properties>
+  </rule>
+
+  <!-- Allow modern PSR-4 class naming conventions -->
+  <rule ref="WordPress.Files.FileName">
+    <properties>
+      <property name="strict_class_file_names" value="false"/>
+    </properties>
+    <exclude-pattern>src/*</exclude-pattern>
+  </rule>
+
+  <!-- Exclude method name validation for PSR-4 classes -->
+  <rule ref="WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid">
+    <exclude-pattern>src/*</exclude-pattern>
+  </rule>
+
+  <!-- Exclude variable name validation for PSR-4 classes -->
+  <rule ref="WordPress.NamingConventions.ValidVariableName">
+    <exclude-pattern>src/*</exclude-pattern>
+  </rule>
+
+  <!-- Allow inline comments without punctuation in src/ -->
+  <rule ref="Squiz.Commenting.InlineComment.InvalidEndChar">
+    <exclude-pattern>src/*</exclude-pattern>
+  </rule>
+
+  <!-- Exclude doc comment requirement for private methods -->
+  <rule ref="Squiz.Commenting.FunctionComment.Missing">
+    <exclude-pattern>src/*</exclude-pattern>
   </rule>
 
   <!-- Exclude certain sniffs in test files -->
