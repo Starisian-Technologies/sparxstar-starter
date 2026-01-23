@@ -1,0 +1,4 @@
+<?php
+/**
+ * Gluon — the quiet glue that scaffolds structure without getting in the way.
+ */

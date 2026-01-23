@@ -1,6 +1,6 @@
 # Security Policy – Starisian Technologies Governance Repository
 
-This document defines the security reporting and disclosure policy for the AiWA Governance Repository, which may contain culturally sensitive, ethically governed, and AI-training related data and code.
+This document defines the security reporting and disclosure policy for the Starisian Technologies Repository, which may contain culturally sensitive, ethically governed, and AI-training related data and code.
 
 ## Reporting a Vulnerability
 

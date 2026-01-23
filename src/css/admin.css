@@ -1,0 +1,167 @@
+/**
+ * Admin Styles
+ *
+ * Styles for the WordPress admin interface.
+ * This file will be minified to assets/css/admin.min.css during build.
+ *
+ * @package Starisian\Sparxstar
+ */
+
+:root {
+	--sparxstar-primary: #0073aa;
+	--sparxstar-secondary: #006799;
+	--sparxstar-success: #46b450;
+	--sparxstar-danger: #dc3232;
+	--sparxstar-warning: #ffb900;
+}
+
+/**
+ * Admin container
+ */
+.sparxstar-admin-container {
+	max-width: 1200px;
+	margin: 20px auto;
+	padding: 20px;
+	background: #fff;
+	border: 1px solid #ccd0d4;
+	box-shadow: 0 1px 1px rgb(0 0 0 / 4%);
+}
+
+/**
+ * Buttons
+ */
+.sparxstar-button {
+	display: inline-block;
+	padding: 8px 16px;
+	background: var(--sparxstar-primary);
+	color: #fff;
+	text-decoration: none;
+	border: none;
+	border-radius: 3px;
+	cursor: pointer;
+	transition: background 0.2s ease;
+}
+
+.sparxstar-button:hover {
+	background: var(--sparxstar-secondary);
+	color: #fff;
+}
+
+.sparxstar-button:focus {
+	outline: 2px solid var(--sparxstar-primary);
+	outline-offset: 2px;
+}
+
+/**
+ * Form elements
+ */
+.sparxstar-form-group {
+	margin-bottom: 20px;
+}
+
+.sparxstar-form-label {
+	display: block;
+	margin-bottom: 8px;
+	font-weight: 600;
+	color: #23282d;
+}
+
+.sparxstar-form-input {
+	width: 100%;
+	padding: 8px 12px;
+	border: 1px solid #7e8993;
+	border-radius: 3px;
+	font-size: 14px;
+	line-height: 1.5;
+}
+
+.sparxstar-form-input:focus {
+	border-color: var(--sparxstar-primary);
+	outline: none;
+	box-shadow: 0 0 0 1px var(--sparxstar-primary);
+}
+
+/**
+ * Notices
+ */
+.sparxstar-notice {
+	padding: 12px;
+	margin: 16px 0;
+	border-left: 4px solid;
+	background: #fff;
+}
+
+.sparxstar-notice.notice-success {
+	border-left-color: var(--sparxstar-success);
+}
+
+.sparxstar-notice.notice-error {
+	border-left-color: var(--sparxstar-danger);
+}
+
+.sparxstar-notice.notice-warning {
+	border-left-color: var(--sparxstar-warning);
+}
+
+/**
+ * Tables
+ */
+.sparxstar-table {
+	width: 100%;
+	border-collapse: collapse;
+	margin: 20px 0;
+}
+
+.sparxstar-table th,
+.sparxstar-table td {
+	padding: 12px;
+	text-align: left;
+	border-bottom: 1px solid #ddd;
+}
+
+.sparxstar-table th {
+	background: #f9f9f9;
+	font-weight: 600;
+}
+
+.sparxstar-table tbody tr:hover {
+	background: #f9f9f9;
+}
+
+/**
+ * Utility classes
+ */
+.sparxstar-text-center {
+	text-align: center;
+}
+
+.sparxstar-text-right {
+	text-align: right;
+}
+
+.sparxstar-mt-20 {
+	margin-top: 20px;
+}
+
+.sparxstar-mb-20 {
+	margin-bottom: 20px;
+}
+
+/**
+ * Responsive
+ */
+@media screen and (width <= 782px) {
+	.sparxstar-admin-container {
+		margin: 10px;
+		padding: 10px;
+	}
+
+	.sparxstar-table {
+		font-size: 14px;
+	}
+
+	.sparxstar-table th,
+	.sparxstar-table td {
+		padding: 8px;
+	}
+}

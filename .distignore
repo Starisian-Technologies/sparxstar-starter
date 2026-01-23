@@ -1,0 +1,88 @@
+# Exclude development and CI files from distribution
+.git
+.github
+.gitignore
+.gitattributes
+.editorconfig
+.distignore
+
+# Development dependencies
+node_modules
+vendor
+composer.json
+composer.lock
+package.json
+package-lock.json
+
+# Development configuration
+phpcs.xml.dist
+phpstan.neon.dist
+phpstan-baseline.neon
+phpunit.xml.dist
+rector.php
+eslint.config.js
+.stylelintrc.json
+.stylelintignore
+jest.config.js
+playwright.config.js
+commitlint.config.js
+.husky
+gl-codequality.yml
+
+# Source files (since we distribute built/minified)
+src/js
+src/css
+
+# Tests and examples
+tests
+examples
+docs/LOCAL_DEVELOPMENT.md
+docs/FIRST_CONTRIBUTION.md
+
+# Project management files
+*.md
+!README.md
+CHANGELOG.md
+CONTRIBUTING.md
+CODE_OF_CONDUCT.md
+DECISIONS.md
+ETHICS.md
+INCIDENTS.md
+MAINTAINERS.md
+RELEASE_PROCESS.md
+ROADMAP.md
+SECURITY.md
+SUPPORT.md
+TERMS.md
+THIRD_PARTY_LICENSES.md
+CULTURAL_GUIDELINES.md
+ARCHITECTURE.md
+
+# Build scripts
+scripts
+
+# Environment and config
+example.env
+.env
+.env.*
+
+# IDE and editor files
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Data and schema directories (if not needed in distribution)
+data
+schemas
+profiles
+
+# Temporary and log files
+*.log
+*.tmp
+*.cache

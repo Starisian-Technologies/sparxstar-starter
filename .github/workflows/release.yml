@@ -1,20 +1,161 @@
-permissions:
-  contents: read
 name: Release
+
 on:
-  push:
-    tags:
-      - 'v*'
+    push:
+        tags:
+            - 'v*'
+            - 'v*.*'
+            - 'v*.*.*'
+
+permissions:
+    contents: write
+
 jobs:
-  publish:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Build changelog
-        run: echo "Generate changelog" 
-      - name: Package
-        run: zip -r artifact.zip .
-      - uses: actions/upload-artifact@v3
-        with:
-          name: plugin
-          path: artifact.zip
+    release:
+        name: Build and Release
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: '8.2'
+                  extensions: mbstring, intl, json
+                  tools: composer:v2
+                  coverage: none
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
+                  cache: 'npm'
+
+            - name: Get version from tag
+              id: get_version
+              run: |
+                  TAG="${GITHUB_REF#refs/tags/}"
+                  VERSION="${TAG#v}"
+                  echo "version=$VERSION" >> $GITHUB_OUTPUT
+                  echo "tag=$TAG" >> $GITHUB_OUTPUT
+                  echo "Version: $VERSION"
+
+            - name: Install PHP dependencies
+              run: composer install --no-dev --optimize-autoloader --prefer-dist --no-interaction
+
+            - name: Install Node dependencies
+              run: npm ci
+
+            - name: Update version in files
+              run: |
+                  VERSION="${{ steps.get_version.outputs.version }}"
+
+                  # Update plugin main file version
+                  sed -i "s/Version:           [0-9.]\+/Version:           $VERSION/" sparxstar-plugin-entry.php
+                  sed -i "s/@version [0-9.]\+/@version $VERSION/" sparxstar-plugin-entry.php
+                  sed -i "s/define('GLUON_PLUGIN_VERSION', '[0-9.]\+');/define('GLUON_PLUGIN_VERSION', '$VERSION');/" sparxstar-plugin-entry.php
+
+                  # Update package.json version
+                  npm version $VERSION --no-git-tag-version --allow-same-version
+
+                  # Update composer.json version if it exists
+                  if grep -q '"version"' composer.json; then
+                    sed -i "s/\"version\": \"[0-9.]\+\"/\"version\": \"$VERSION\"/" composer.json
+                  fi
+
+            - name: Build assets
+              run: |
+                  npm run build
+                  echo "✓ Assets built successfully"
+
+            - name: Generate POT file
+              run: |
+                  # Install WP-CLI if needed
+                  if ! command -v wp &> /dev/null; then
+                    curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+                    chmod +x wp-cli.phar
+                    sudo mv wp-cli.phar /usr/local/bin/wp
+                  fi
+
+                  # Create languages directory
+                  mkdir -p languages
+
+                  # Generate POT file
+                  wp i18n make-pot . languages/plugin-textdomain.pot --domain=plugin-textdomain --allow-root || true
+
+            - name: Create distribution directory
+              run: |
+                  mkdir -p dist
+
+                  # Copy files excluding those in .distignore
+                  rsync -av --exclude-from=.distignore . dist/sparxstar-plugin/
+
+                  echo "✓ Distribution directory created"
+
+            - name: Generate checksums
+              id: checksums
+              run: |
+                  cd dist
+
+                  # Create zip file
+                  zip -r sparxstar-plugin.zip sparxstar-plugin/
+
+                  # Generate checksums
+                  md5sum sparxstar-plugin.zip > sparxstar-plugin.zip.md5
+                  sha256sum sparxstar-plugin.zip > sparxstar-plugin.zip.sha256
+
+                  # Save checksums to output
+                  MD5=$(cat sparxstar-plugin.zip.md5 | awk '{print $1}')
+                  SHA256=$(cat sparxstar-plugin.zip.sha256 | awk '{print $1}')
+
+                  echo "md5=$MD5" >> $GITHUB_OUTPUT
+                  echo "sha256=$SHA256" >> $GITHUB_OUTPUT
+
+                  echo "MD5: $MD5"
+                  echo "SHA256: $SHA256"
+
+            - name: Generate changelog
+              id: changelog
+              run: |
+                  # Extract changelog for current version if CHANGELOG.md exists
+                  if [ -f CHANGELOG.md ]; then
+                    VERSION="${{ steps.get_version.outputs.version }}"
+                    sed -n "/## \[$VERSION\]/,/## \[/p" CHANGELOG.md | sed '$d' > /tmp/current_changelog.md
+                    
+                    if [ -s /tmp/current_changelog.md ]; then
+                      cat /tmp/current_changelog.md
+                    else
+                      echo "Release $VERSION" > /tmp/current_changelog.md
+                    fi
+                  else
+                    echo "Release ${{ steps.get_version.outputs.version }}" > /tmp/current_changelog.md
+                  fi
+
+                  # Add checksums to changelog
+                  echo "" >> /tmp/current_changelog.md
+                  echo "## Checksums" >> /tmp/current_changelog.md
+                  echo "" >> /tmp/current_changelog.md
+                  echo "**MD5:** \`${{ steps.checksums.outputs.md5 }}\`" >> /tmp/current_changelog.md
+                  echo "**SHA256:** \`${{ steps.checksums.outputs.sha256 }}\`" >> /tmp/current_changelog.md
+
+            - name: Create GitHub Release
+              uses: softprops/action-gh-release@v2
+              with:
+                  files: |
+                      dist/sparxstar-plugin.zip
+                      dist/sparxstar-plugin.zip.md5
+                      dist/sparxstar-plugin.zip.sha256
+                  body_path: /tmp/current_changelog.md
+                  draft: false
+                  prerelease: ${{ contains(steps.get_version.outputs.version, '-') }}
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Upload artifact
+              uses: actions/upload-artifact@v4
+              with:
+                  name: plugin-release-${{ steps.get_version.outputs.version }}
+                  path: dist/sparxstar-plugin.zip
+                  retention-days: 30

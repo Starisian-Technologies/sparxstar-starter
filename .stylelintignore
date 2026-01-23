@@ -1,2 +1,9 @@
 node_modules/
 dist/
+vendor/
+assets/
+data/
+examples/
+schemas/
+tests/
+*.min.css

@@ -1,3 +1,14 @@
 {
-  "extends": "stylelint-config-standard"
+    "extends": "stylelint-config-standard",
+    "rules": {
+        "selector-class-pattern": [
+            "^[a-z][a-z0-9]*(-[a-z0-9]+)*((__[a-z0-9]+(-[a-z0-9]+)*)?(--[a-z0-9]+(-[a-z0-9]+)*)?)?$",
+            {
+                "message": "Class names should follow BEM naming convention (block__element--modifier)"
+            }
+        ],
+        "alpha-value-notation": "percentage",
+        "color-function-notation": "modern",
+        "media-feature-range-notation": "context"
+    }
 }

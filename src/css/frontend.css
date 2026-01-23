@@ -1,0 +1,307 @@
+/**
+ * Frontend Styles
+ *
+ * Styles for the public-facing side of the plugin.
+ * This file will be minified to assets/css/frontend.min.css during build.
+ *
+ * @package Starisian\Sparxstar
+ */
+
+:root {
+	--sparxstar-primary: #0073aa;
+	--sparxstar-secondary: #006799;
+	--sparxstar-accent: #00a0d2;
+	--sparxstar-text: #32373c;
+	--sparxstar-light: #f7f7f7;
+	--sparxstar-border: #dcdcde;
+	--sparxstar-success: #46b450;
+	--sparxstar-warning: #ffb900;
+	--sparxstar-danger: #dc3232;
+}
+
+/**
+ * Plugin container
+ */
+.sparxstar-container {
+	max-width: 100%;
+	margin: 0 auto;
+	padding: 20px;
+}
+
+/**
+ * Consent banner (example)
+ */
+.sparxstar-consent-banner {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: #fff;
+	border-top: 1px solid var(--sparxstar-border);
+	box-shadow: 0 -2px 10px rgb(0 0 0 / 10%);
+	padding: 20px;
+	z-index: 9999;
+	transform: translateY(100%);
+	transition: transform 0.3s ease;
+}
+
+.sparxstar-consent-banner.is-visible {
+	transform: translateY(0);
+}
+
+.sparxstar-consent-banner__content {
+	max-width: 1200px;
+	margin: 0 auto;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 20px;
+}
+
+.sparxstar-consent-banner__text {
+	flex: 1;
+	color: var(--sparxstar-text);
+	font-size: 14px;
+	line-height: 1.6;
+}
+
+.sparxstar-consent-banner__actions {
+	display: flex;
+	gap: 10px;
+	flex-shrink: 0;
+}
+
+/**
+ * Buttons
+ */
+.sparxstar-button {
+	display: inline-block;
+	padding: 10px 20px;
+	background: var(--sparxstar-primary);
+	color: #fff;
+	text-decoration: none;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 14px;
+	font-weight: 500;
+	transition: all 0.2s ease;
+	text-align: center;
+}
+
+.sparxstar-button:hover {
+	background: var(--sparxstar-secondary);
+	color: #fff;
+	transform: translateY(-1px);
+	box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
+}
+
+.sparxstar-button:active {
+	transform: translateY(0);
+}
+
+.sparxstar-button:focus {
+	outline: 2px solid var(--sparxstar-primary);
+	outline-offset: 2px;
+}
+
+.sparxstar-button--secondary {
+	background: transparent;
+	color: var(--sparxstar-primary);
+	border: 1px solid var(--sparxstar-primary);
+}
+
+.sparxstar-button--secondary:hover {
+	background: var(--sparxstar-primary);
+	color: #fff;
+}
+
+.sparxstar-button--small {
+	padding: 6px 12px;
+	font-size: 13px;
+}
+
+.sparxstar-button--large {
+	padding: 14px 28px;
+	font-size: 16px;
+}
+
+/**
+ * Cards
+ */
+.sparxstar-card {
+	background: #fff;
+	border: 1px solid var(--sparxstar-border);
+	border-radius: 4px;
+	padding: 20px;
+	margin-bottom: 20px;
+	box-shadow: 0 1px 3px rgb(0 0 0 / 5%);
+}
+
+.sparxstar-card__header {
+	margin-bottom: 15px;
+	padding-bottom: 15px;
+	border-bottom: 1px solid var(--sparxstar-border);
+}
+
+.sparxstar-card__title {
+	margin: 0;
+	font-size: 18px;
+	font-weight: 600;
+	color: var(--sparxstar-text);
+}
+
+.sparxstar-card__body {
+	color: var(--sparxstar-text);
+	line-height: 1.6;
+}
+
+/**
+ * Notices
+ */
+.sparxstar-notice {
+	padding: 15px;
+	margin: 20px 0;
+	border-left: 4px solid;
+	border-radius: 4px;
+	background: var(--sparxstar-light);
+}
+
+.sparxstar-notice--success {
+	border-left-color: var(--sparxstar-success);
+	background: #f0f9f1;
+}
+
+.sparxstar-notice--warning {
+	border-left-color: var(--sparxstar-warning);
+	background: #fff8e5;
+}
+
+.sparxstar-notice--error {
+	border-left-color: var(--sparxstar-danger);
+	background: #fef7f7;
+}
+
+.sparxstar-notice--info {
+	border-left-color: var(--sparxstar-primary);
+	background: #f0f8ff;
+}
+
+/**
+ * Loading spinner
+ */
+.sparxstar-spinner {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	border: 2px solid rgb(0 0 0 / 10%);
+	border-left-color: var(--sparxstar-primary);
+	border-radius: 50%;
+	animation: sparxstar-spin 0.6s linear infinite;
+}
+
+@keyframes sparxstar-spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+/**
+ * Utility classes
+ */
+.sparxstar-text-center {
+	text-align: center;
+}
+
+.sparxstar-text-right {
+	text-align: right;
+}
+
+.sparxstar-text-left {
+	text-align: left;
+}
+
+.sparxstar-mt-10 {
+	margin-top: 10px;
+}
+
+.sparxstar-mt-20 {
+	margin-top: 20px;
+}
+
+.sparxstar-mb-10 {
+	margin-bottom: 10px;
+}
+
+.sparxstar-mb-20 {
+	margin-bottom: 20px;
+}
+
+.sparxstar-hidden {
+	display: none !important;
+}
+
+.sparxstar-sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+	border: 0;
+}
+
+/**
+ * Responsive utilities
+ */
+@media screen and (width <= 782px) {
+	.sparxstar-consent-banner__content {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.sparxstar-consent-banner__actions {
+		flex-direction: column;
+	}
+
+	.sparxstar-button {
+		width: 100%;
+	}
+
+	.sparxstar-card {
+		padding: 15px;
+	}
+}
+
+@media screen and (width <= 480px) {
+	.sparxstar-container {
+		padding: 10px;
+	}
+
+	.sparxstar-consent-banner {
+		padding: 15px;
+	}
+}
+
+/**
+ * Dark mode support
+ */
+@media (prefers-color-scheme: dark) {
+	.sparxstar-card {
+		background: #1e1e1e;
+		border-color: #333;
+		color: #e0e0e0;
+	}
+
+	.sparxstar-card__title {
+		color: #fff;
+	}
+
+	.sparxstar-consent-banner {
+		background: #1e1e1e;
+		border-top-color: #333;
+		color: #e0e0e0;
+	}
+}

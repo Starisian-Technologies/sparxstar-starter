@@ -2,16 +2,79 @@ name: CI
 
 on:
     push:
-        branches: [main]
+        branches: [main, develop]
     pull_request:
-        branches: [main]
+        branches: [main, develop]
 
 permissions:
     contents: read
 
 jobs:
-    build-and-test:
-        name: Build & Test (PHP ${{ matrix.php-version }})
+    lint-php:
+        name: PHP Linting & Analysis
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v4
+
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: '8.2'
+                  extensions: mbstring, intl, json
+                  tools: composer:v2
+                  coverage: none
+
+            - name: Get Composer Cache Directory
+              id: composer-cache
+              run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+            - name: Cache Composer Dependencies
+              uses: actions/cache@v4
+              with:
+                  path: ${{ steps.composer-cache.outputs.dir }}
+                  key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+                  restore-keys: |
+                      ${{ runner.os }}-composer-
+
+            - name: Install PHP Dependencies
+              run: composer install --no-interaction --prefer-dist
+
+            - name: Lint PHP (PHPCS)
+              run: composer run lint:php
+
+            - name: Static Analysis (PHPStan)
+              run: composer run analyze:php
+
+            - name: Check Rector
+              run: composer run refactor:php
+
+    lint-frontend:
+        name: Frontend Linting (JS & CSS)
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
+                  cache: 'npm'
+
+            - name: Install Dependencies
+              run: npm ci
+
+            - name: Lint JavaScript
+              run: npm run lint:js
+
+            - name: Lint CSS
+              run: npm run lint:css
+
+    test-php:
+        name: PHP Unit Tests (PHP ${{ matrix.php-version }})
         runs-on: ubuntu-latest
         strategy:
             fail-fast: false
@@ -30,41 +93,67 @@ jobs:
                   tools: composer:v2
                   coverage: none
 
+            - name: Cache Composer Dependencies
+              uses: actions/cache@v4
+              with:
+                  path: vendor
+                  key: ${{ runner.os }}-php-${{ matrix.php-version }}-${{ hashFiles('**/composer.lock') }}
+
+            - name: Install PHP Dependencies
+              run: composer install --no-interaction --prefer-dist
+
+            - name: Run PHPUnit Tests
+              run: composer run test:php
+
+    test-javascript:
+        name: JavaScript Unit Tests
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v4
+
             - name: Setup Node.js
               uses: actions/setup-node@v4
               with:
                   node-version: '20'
                   cache: 'npm'
 
-            - name: Get Composer Cache Directory
-              id: composer-cache
-              run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-
-            - name: Cache Composer Dependencies
-              uses: actions/cache@v4
-              with:
-                  path: ${{ steps.composer-cache.outputs.dir }}
-                  key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-                  restore-keys: |
-                      ${{ runner.os }}-composer-
-
-            - name: Install PHP Dependencies
-              run: composer install --no-interaction --prefer-dist
-
-            - name: Install JS Dependencies
+            - name: Install Dependencies
               run: npm ci
 
-            - name: Lint JS & CSS
-              run: npm run lint
-
-            - name: Lint PHP
-              run: composer run lint:php
-
-            - name: Static Analysis (PHPStan)
-              run: composer run analyze:php
-
-            - name: Test PHP
-              run: composer run test:php
-
-            - name: Test JS
+            - name: Run Jest Tests
               run: npm test
+
+    build-assets:
+        name: Build & Validate Assets
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
+                  cache: 'npm'
+
+            - name: Install Dependencies
+              run: npm ci
+
+            - name: Build JS Assets
+              run: npm run build:js
+
+            - name: Build CSS Assets
+              run: npm run build:css
+
+            - name: Verify Built Files
+              run: |
+                  if [ -d "assets/js" ] && [ -d "assets/css" ]; then
+                      echo "✓ Build directories created successfully"
+                      ls -la assets/js/ assets/css/ || true
+                  else
+                      echo "✗ Build directories not found"
+                      exit 1
+                  fi

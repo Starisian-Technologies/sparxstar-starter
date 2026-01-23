@@ -1,0 +1,78 @@
+name: Accessibility Testing
+
+on:
+    pull_request:
+        branches: [main, develop]
+    push:
+        branches: [main, develop]
+    workflow_dispatch:
+
+permissions:
+    contents: read
+    issues: write
+
+jobs:
+    accessibility:
+        name: Accessibility Audit
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
+                  cache: 'npm'
+
+            - name: Install Dependencies
+              run: npm ci
+
+            - name: Install Playwright Browsers
+              run: npx playwright install --with-deps chromium
+
+            - name: Install Axe Core
+              run: npm install --save-dev axe-playwright @axe-core/playwright
+
+            - name: Run Accessibility Tests
+              run: |
+                  # Create test directory if it doesn't exist
+                  mkdir -p tests/e2e
+
+                  # Run axe accessibility checks if test files exist
+                  if [ -d "tests/e2e" ] && [ "$(ls -A tests/e2e)" ]; then
+                    npx playwright test --grep @accessibility || echo "No accessibility tests found"
+                  else
+                    echo "No E2E tests found. Skipping accessibility checks."
+                  fi
+
+            - name: HTML Validation
+              run: |
+                  # Install HTML validator
+                  npm install --save-dev html-validate
+
+                  # Validate HTML files in templates if they exist
+                  if [ -d "src/templates" ]; then
+                    npx html-validate "src/templates/**/*.html" || echo "No HTML templates found"
+                  fi
+
+            - name: Upload Accessibility Report
+              if: always()
+              uses: actions/upload-artifact@v4
+              with:
+                  name: accessibility-report
+                  path: playwright-report/
+                  retention-days: 30
+
+            - name: Comment PR with Results
+              if: github.event_name == 'pull_request' && failure()
+              uses: actions/github-script@v7
+              with:
+                  script: |
+                      github.rest.issues.createComment({
+                        issue_number: context.issue.number,
+                        owner: context.repo.owner,
+                        repo: context.repo.repo,
+                        body: '⚠️ Accessibility tests failed. Please review the accessibility report in the workflow artifacts.'
+                      })

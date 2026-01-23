@@ -67,16 +67,10 @@
         "husky": "^9.1.7",
         "jest": "^30.2.0",
         "lint-staged": "^16.2.7",
-<<<<<<< HEAD
         "prettier": "^3.8.0",
-        "stylelint": "^17.0.0",
-        "stylelint-config-standard": "^40.0.0"
-=======
-        "prettier": "^3.7.4",
         "puppeteer": "^24.2.0",
-        "stylelint": "^16.26.1",
-        "stylelint-config-standard": "^39.0.1",
+        "stylelint": "^17.0.0",
+        "stylelint-config-standard": "^40.0.0",
         "terser": "^5.39.2"
->>>>>>> a3c9a81 (Add comprehensive docblock comments and fix namespace issues)
     }
 }

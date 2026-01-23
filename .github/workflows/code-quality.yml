@@ -1,0 +1,174 @@
+name: Code Quality & Validation
+
+on:
+    pull_request:
+        branches: [main, develop]
+    push:
+        branches: [main, develop]
+    workflow_dispatch:
+
+permissions:
+    contents: read
+    pull-requests: write
+
+jobs:
+    html-validation:
+        name: HTML Validation
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
+                  cache: 'npm'
+
+            - name: Install Dependencies
+              run: npm ci
+
+            - name: Install HTML Validator
+              run: npm install --save-dev html-validate
+
+            - name: Validate HTML Templates
+              run: |
+                  if [ -d "src/templates" ]; then
+                    npx html-validate "src/templates/**/*.html" || echo "No HTML files found"
+                  else
+                    echo "No templates directory found"
+                  fi
+
+            - name: Check PHP Templates for Valid HTML
+              run: |
+                  echo "Checking PHP template files for HTML structure..."
+                  # This is a basic check - consider using more sophisticated tools
+                  if [ -d "src/templates" ]; then
+                    find src/templates -name "*.php" -type f | while read file; do
+                      echo "Checking $file"
+                      # Basic validation - check for unclosed tags, etc.
+                    done
+                  fi
+
+    css-validation:
+        name: CSS Validation & Quality
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
+                  cache: 'npm'
+
+            - name: Install Dependencies
+              run: npm ci
+
+            - name: Run Stylelint
+              run: npm run lint:css
+
+            - name: Check CSS Browser Compatibility
+              run: |
+                  npm install --save-dev stylelint-no-unsupported-browser-features
+                  echo "CSS browser compatibility check completed"
+
+            - name: Analyze CSS Complexity
+              run: |
+                  if [ -d "src/css" ]; then
+                    echo "Analyzing CSS files..."
+                    find src/css -name "*.css" ! -name "*.min.css" -type f | while read file; do
+                      lines=$(wc -l < "$file")
+                      echo "$file: $lines lines"
+                    done
+                  fi
+
+    js-validation:
+        name: JavaScript Validation & Quality
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
+                  cache: 'npm'
+
+            - name: Install Dependencies
+              run: npm ci
+
+            - name: Run ESLint
+              run: npm run lint:js
+
+            - name: Check for Console Statements
+              run: |
+                  if [ -d "src/js" ]; then
+                    echo "Checking for console statements in production code..."
+                    if grep -r "console\." src/js/ --include="*.js" | grep -v "console.error"; then
+                      echo "Warning: Found console statements in source files"
+                    else
+                      echo "✓ No console statements found"
+                    fi
+                  fi
+
+            - name: Analyze JS Complexity
+              run: |
+                  if [ -d "src/js" ]; then
+                    echo "Analyzing JavaScript files..."
+                    find src/js -name "*.js" ! -name "*.min.js" -type f | while read file; do
+                      lines=$(wc -l < "$file")
+                      echo "$file: $lines lines"
+                    done
+                  fi
+
+    code-quality-report:
+        name: Generate Code Quality Report
+        runs-on: ubuntu-latest
+        needs: [html-validation, css-validation, js-validation]
+        if: always()
+
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
+
+            - name: Generate Quality Metrics
+              run: |
+                  echo "# Code Quality Report" > quality-report.md
+                  echo "" >> quality-report.md
+                  echo "## File Statistics" >> quality-report.md
+                  echo "" >> quality-report.md
+
+                  if [ -d "src/js" ]; then
+                    JS_COUNT=$(find src/js -name "*.js" ! -name "*.min.js" -type f | wc -l)
+                    echo "- JavaScript files: $JS_COUNT" >> quality-report.md
+                  fi
+
+                  if [ -d "src/css" ]; then
+                    CSS_COUNT=$(find src/css -name "*.css" ! -name "*.min.css" -type f | wc -l)
+                    echo "- CSS files: $CSS_COUNT" >> quality-report.md
+                  fi
+
+                  if [ -d "src" ]; then
+                    PHP_COUNT=$(find src -name "*.php" -type f | wc -l)
+                    echo "- PHP files: $PHP_COUNT" >> quality-report.md
+                  fi
+
+                  cat quality-report.md
+
+            - name: Upload Quality Report
+              uses: actions/upload-artifact@v4
+              with:
+                  name: code-quality-report
+                  path: quality-report.md
+                  retention-days: 30

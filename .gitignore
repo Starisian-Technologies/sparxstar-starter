@@ -7,16 +7,30 @@ Thumbs.db
 *.tmp
 *.log
 .idea/
-.vscode/
+.vscode/settings.json
+.vscode/launch.json
+
+# Environment files
+.env
+.env.local
+.env.*.local
 
 # Composer
 /vendor/
 
-# Node (if using for assets)
+# Node
 node_modules/
 npm-debug.log
 yarn.lock
+yarn-error.log
+package-lock.json
+
+# Build output
 dist/
+build/
+assets/js/*.min.js
+assets/js/*.min.js.map
+assets/css/*.min.css
 
 # WordPress-generated or temp
 *.min.js
@@ -25,7 +39,7 @@ dist/
 *.zip
 *.tar.gz
 
-# Uploads/cache/temp (if plugin writes files)
+# Uploads/cache/temp
 uploads/
 cache/
 tmp/
@@ -33,6 +47,7 @@ tmp/
 # PHPUnit coverage or reports
 coverage/
 .phpunit.result.cache
+phpunit.xml
 
 # PHPCS & PHPStan
 phpcs.xml
@@ -40,14 +55,28 @@ phpcs.xml.cache
 phpstan.neon
 phpstan-result.cache
 
+# Rector
+rector-cache/
+
+# Playwright
+playwright-report/
+test-results/
+playwright/.cache/
+
+# Jest
+jest-cache/
+
 # Language file builds
 languages/*.mo
 languages/*.po
-languages/*.pot
+# Keep POT files in version control
+# languages/*.pot
 
 # Logs and error dumps
 *.log
 *.err
+error_log
+debug.log
 
 # GitHub settings (ignore local override)
 .github/*.local.yml
